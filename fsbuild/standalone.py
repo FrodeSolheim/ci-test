@@ -31,7 +31,7 @@ def fix_linux_binary(path):
     # p = subprocess.Popen(args, stdout=subprocess.PIPE)
     # if p.wait() != 0:
     #     return 0
-    p = subprocess.run(args, capture_output=True)
+    p = subprocess.run(args, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
     # noinspection PyUnresolvedReferences
     if p.returncode != 0:
         if p.stderr == b"\tnot a dynamic executable\n":

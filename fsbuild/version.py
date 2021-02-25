@@ -178,7 +178,9 @@ def update_package_fs(version):
             elif line.startswith("PACKAGE_VERSION_MINOR="):
                 lines.append(f"PACKAGE_VERSION_MINOR={str(version.minor)}\n")
             elif line.startswith("PACKAGE_VERSION_REVISION="):
-                lines.append(f"PACKAGE_VERSION_REVISION={str(version.revision)}\n")
+                lines.append(
+                    f"PACKAGE_VERSION_REVISION={str(version.revision)}\n"
+                )
             elif line.startswith("PACKAGE_VERSION_TAG="):
                 lines.append(f"PACKAGE_VERSION_TAG={str(version.tag)}\n")
             elif line.startswith("PACKAGE_COMMIT="):
@@ -204,7 +206,9 @@ def update_commit_fs(version):
             f.write("\n")
 
 
-def calculate_version(auto_revision=False, include_commit=False):
+def calculate_version(
+    auto_revision=False, increment_revision=False, include_commit=False
+):
     # with open("fsbuild/VERSION") as f:
     #     # with open("VERSION.FS") as f:
     #     version_str = f.read().strip()
@@ -216,9 +220,9 @@ def calculate_version(auto_revision=False, include_commit=False):
     if auto_revision:
         # version_commit = find_last_commit_for_file("VERSION.FS")
         version_commit = find_last_commit_for_file("PACKAGE.FS")
-        # version.revision = 1 + num_commits_since(version_commit)
         version.revision += num_commits_since(version_commit)
-        # version.revision += 1 + num_commits_since(version_commit)
+        if increment_revision:
+            version.revision += 1
     if "--commit" in sys.argv:
         version.commit = find_last_commit()
     return version
@@ -240,9 +244,16 @@ def update_version(version):
 
 def main():
     auto_revision = "--revision" in sys.argv
+    increment_revision = "--increment" in sys.argv
     include_commit = "--commit" in sys.argv
+    if "--auto-next" in sys.argv:
+        auto_revision = True
+        increment_revision = True
+
     version = calculate_version(
-        auto_revision=auto_revision, include_commit=include_commit
+        auto_revision=auto_revision,
+        increment_revision=increment_revision,
+        include_commit=include_commit,
     )
     print(str(version))
 

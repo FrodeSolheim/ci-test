@@ -1,0 +1,15 @@
+#!/bin/sh
+set -e
+
+if [ -f fsbuild/bundle.inc.sh ]; then
+. fsbuild/bundle.inc.sh
+elif [ -f fsplugin/Makefile ]; then
+# make -C fsplugin fsemu-plugin-prep
+# make -C fsplugin fsemu-build
+make -C fsplugin fsemu-assemble-wrap
+make -C fsplugin fsemu-strip
+# make -C fsplugin plugin-noclean
+mkdir -p fsbuild/_build
+rm -Rf fsbuild/_build/$PACKAGE
+mv fsplugin/build/$PACKAGE fsbuild/_build/$PACKAGE
+fi

@@ -1,0 +1,12 @@
+#!/bin/sh
+set -e
+
+. fsdeps/env.sh
+
+COMMAND=$1
+if [ "$COMMAND" = "" ]; then
+exec bash --rcfile fsdeps/bashrc
+else
+shift
+$COMMAND "$@"
+fi

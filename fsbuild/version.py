@@ -205,12 +205,17 @@ def update_commit_fs(version):
 
 
 def calculate_version(auto_revision=False, include_commit=False):
-    with open("fsbuild/VERSION") as f:
-        # with open("VERSION.FS") as f:
-        version_str = f.read().strip()
+    # with open("fsbuild/VERSION") as f:
+    #     # with open("VERSION.FS") as f:
+    #     version_str = f.read().strip()
+    with open("PACKAGE.FS") as f:
+        for line in f:
+            if line.startswith("PACKAGE_VERSION="):
+                version_str = line[16:].strip()
     version = Version(version_str)
     if auto_revision:
-        version_commit = find_last_commit_for_file("VERSION.FS")
+        # version_commit = find_last_commit_for_file("VERSION.FS")
+        version_commit = find_last_commit_for_file("PACKAGE.FS")
         # version.revision = 1 + num_commits_since(version_commit)
         version.revision += num_commits_since(version_commit)
         # version.revision += 1 + num_commits_since(version_commit)

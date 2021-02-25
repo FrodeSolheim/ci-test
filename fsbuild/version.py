@@ -176,7 +176,7 @@ def update_package_fs(version):
             elif line.startswith("PACKAGE_VERSION_MAJOR="):
                 lines.append(f"PACKAGE_VERSION_MAJOR={str(version.major)}\n")
             elif line.startswith("PACKAGE_VERSION_MINOR="):
-                lines.append(f"PACKAGE_VERSION_MAJOR={str(version.minor)}\n")
+                lines.append(f"PACKAGE_VERSION_MINOR={str(version.minor)}\n")
             elif line.startswith("PACKAGE_VERSION_REVISION="):
                 lines.append(f"PACKAGE_VERSION_REVISION={str(version.revision)}\n")
             elif line.startswith("PACKAGE_VERSION_TAG="):

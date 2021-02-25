@@ -243,12 +243,12 @@ def update_version(version):
 
 
 def main():
-    auto_revision = "--revision" in sys.argv
-    increment_revision = "--increment" in sys.argv
+    auto_revision = "--auto" in sys.argv
+    increment_revision = "--next" in sys.argv
     include_commit = "--commit" in sys.argv
-    if "--auto-next" in sys.argv:
-        auto_revision = True
-        increment_revision = True
+    # if "--auto-next" in sys.argv:
+    #     auto_revision = True
+    #     increment_revision = True
 
     version = calculate_version(
         auto_revision=auto_revision,

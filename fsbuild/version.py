@@ -26,6 +26,12 @@ class Version:
         self.tag = m.group(2)
         self.commit = ""
 
+    def set_last(self, n):
+        if self.build is not None:
+            self.build = n
+        else:
+            self.revision = n
+
     def __str__(self):
         numbers = [self.major, self.minor, self.revision]
         if self.build is not None:
@@ -40,31 +46,25 @@ def shell(command):
 
 def num_commits_since(base):
     to = "HEAD"
-    print(["git", "rev-list", f"{base}..{to}", "--count"])
     result = int(
         subprocess.check_output(
             ["git", "rev-list", f"{base}..{to}", "--count"]
         ).decode()
     )
-    print(result)
     return result
 
 
 def find_last_commit_for_file(path):
-    print(["git", "log", "-n", "1", "--pretty=format:%H", "--", path])
     commit = subprocess.check_output(
         ["git", "log", "-n", "1", "--pretty=format:%H", "--", path]
     ).decode()
-    print(commit)
     return commit
 
 
 def find_last_commit():
-    print(["git", "log", "-n", "1", "--pretty=format:%H"])
     commit = subprocess.check_output(
         ["git", "log", "-n", "1", "--pretty=format:%H"]
     ).decode()
-    print(commit)
     return commit
 
 
@@ -266,8 +266,6 @@ def update_version(version):
 
 
 def main():
-    os.system("git branch")
-    os.system("git status")
     auto_revision = "--auto" in sys.argv
     increment_revision = "--next" in sys.argv
     include_commit = "--commit" in sys.argv
@@ -280,6 +278,14 @@ def main():
         increment_revision=increment_revision,
         include_commit=include_commit,
     )
+
+    for arg in sys.argv:
+        if arg.startswith("--build="):
+            version.build = int(arg[8:])
+        elif arg.startswith("--revision="):
+            version.revision = int(arg[11:])
+        elif arg.startswith("--last="):
+            version.set_last(int(arg[7:]))
     print(str(version))
 
     if "--update" in sys.argv:

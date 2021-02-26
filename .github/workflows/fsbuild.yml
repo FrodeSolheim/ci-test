@@ -71,7 +71,7 @@ jobs:
       run: fsdeps/make
 
     - name: Update version
-      run: python3 fsbuild/version.py --update --auto
+      run: fsbuild/version --update --auto
 
     - name: Bootstrap
       run: fsdeps/use fsbuild/bootstrap
@@ -125,7 +125,7 @@ jobs:
       run: fsdeps/make
 
     - name: Update version
-      run: python3 fsbuild/version.py --update --auto
+      run: fsbuild/version --update --auto
 
     - name: Bootstrap
       run: fsdeps/use fsbuild/bootstrap
@@ -223,7 +223,7 @@ jobs:
       run: fsdeps/make
 
     - name: Update version
-      run: python3 fsbuild/version.py --update --auto
+      run: fsbuild/version --update --auto
 
     - name: Bootstrap
       run: fsdeps/use fsbuild/bootstrap

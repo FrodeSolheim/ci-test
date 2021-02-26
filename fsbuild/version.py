@@ -51,16 +51,20 @@ def num_commits_since(base):
 
 
 def find_last_commit_for_file(path):
+    print(["git", "log", "-n", "1", "--pretty=format:%H", "--", path])
     commit = subprocess.check_output(
         ["git", "log", "-n", "1", "--pretty=format:%H", "--", path]
     ).decode()
+    print(commit)
     return commit
 
 
 def find_last_commit():
+    print(["git", "log", "-n", "1", "--pretty=format:%H"])
     commit = subprocess.check_output(
         ["git", "log", "-n", "1", "--pretty=format:%H"]
     ).decode()
+    print(commit)
     return commit
 
 

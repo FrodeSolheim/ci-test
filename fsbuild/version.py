@@ -40,11 +40,14 @@ def shell(command):
 
 def num_commits_since(base):
     to = "HEAD"
-    return int(
+    print(["git", "rev-list", f"{base}..{to}", "--count"])
+    result = int(
         subprocess.check_output(
             ["git", "rev-list", f"{base}..{to}", "--count"]
         ).decode()
     )
+    print(result)
+    return result
 
 
 def find_last_commit_for_file(path):
@@ -259,6 +262,8 @@ def update_version(version):
 
 
 def main():
+    os.system("git branch")
+    os.system("git status")
     auto_revision = "--auto" in sys.argv
     increment_revision = "--next" in sys.argv
     include_commit = "--commit" in sys.argv

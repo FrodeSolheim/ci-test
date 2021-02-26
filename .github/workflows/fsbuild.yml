@@ -89,7 +89,16 @@ jobs:
     - uses: actions/upload-artifact@v2
       with:
         name: Linux_x86-64
+
         path: fsbuild/_dist/*
+
+    - name: Install dropbox package
+      run: python3 -m pip install dropbox
+
+    - name: Upload build to Dropbox folder
+      run: fsbuild/upload
+      env:
+        DROPBOX_ACCESS_TOKEN: ${{ secrets.DROPBOX_ACCESS_TOKEN }}
 
   macOS_x86-64:
     runs-on: macos-10.15
@@ -157,6 +166,14 @@ jobs:
         name: macOS_x86-64
         path: fsbuild/_dist/*
 
+    - name: Install dropbox package
+      run: python3 -m pip install dropbox
+
+    - name: Upload build to Dropbox folder
+      run: fsbuild/upload
+      env:
+        DROPBOX_ACCESS_TOKEN: ${{ secrets.DROPBOX_ACCESS_TOKEN }}
+
   Windows_x86-64:
     runs-on: windows-2016
 
@@ -219,3 +236,11 @@ jobs:
       with:
         name: Windows_x86-64
         path: fsbuild/_dist/*
+
+    - name: Install dropbox package
+      run: python3 -m pip install dropbox
+
+    - name: Upload build to Dropbox folder
+      run: fsbuild/upload
+      env:
+        DROPBOX_ACCESS_TOKEN: ${{ secrets.DROPBOX_ACCESS_TOKEN }}

@@ -13,8 +13,12 @@ rm -Rf $TEMP_APP
 mkdir -p $TEMP_APP/Contents/MacOS
 # mv "$1"/* $TEMP_APP/Contents/MacOS/
 # mv $TEMP_APP/Contents/MacOS/Version.txt "$1"/
-echo "Copy $DIR/$EXECUTABLE -> $TEMP_APP/Contents/MacOS/"
+echo "Move $DIR/$EXECUTABLE -> $TEMP_APP/Contents/MacOS/"
 mv $DIR/$EXECUTABLE $TEMP_APP/Contents/MacOS/
+
+echo "Move $DIR/\* -> $TEMP_APP/Contents/Resources/Data"
+mkdir -p $TEMP_APP/Contents/Resources/Data
+mv $DIR/* $TEMP_APP/Contents/Resources/Data/
 
 echo "Writing Info.plist"
 

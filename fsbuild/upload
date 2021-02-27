@@ -16,7 +16,7 @@ with open("PACKAGE.FS", "r") as f:
 
 
 def execute_discord_webhook(name, link):
-    webhook_url = os.getenv("DISCORD_WEBHOOK")
+    webhook_url = os.getenv("DISCORD_WEBHOOK_URL")
     if not webhook_url:
         return
     content = (
@@ -35,7 +35,7 @@ def upload(dbx, package, version, path):
     with open(path, "rb") as f:
         dbx.files_upload(f.read(), dst)
     print("Uploaded ->", dst)
-    if os.getenv("DISCORD_WEBHOOK"):
+    if os.getenv("DISCORD_WEBHOOK_URL"):
         result = dbx.sharing_list_shared_links(f"/Builds/CI/{package}")
         link = result.links[0].url
         execute_discord_webhook(name, link)

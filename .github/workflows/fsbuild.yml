@@ -219,6 +219,8 @@ jobs:
           mingw-w64-x86_64-pkg-config
           mingw-w64-x86_64-python
           mingw-w64-x86_64-python-pip
+          mingw-w64-x86_64-python2
+          tar
           unzip
           zip
 

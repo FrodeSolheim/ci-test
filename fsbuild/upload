@@ -41,7 +41,7 @@ def upload_branch_name():
 def upload(dbx, package, version, path):
     print("Upload", path)
     name = os.path.basename(path)
-    assert package in name
+    assert package.lower() in name.lower()
     assert version in name
     branch = upload_branch_name()
     if not branch:
@@ -68,9 +68,6 @@ def upload(dbx, package, version, path):
 def main():
     dist_dir = "fsbuild/_dist"
     upload_items = os.listdir(dist_dir)
-    # Require there to be exactly one dist file for now
-    assert len(upload_items) == 1
-
     dbx = dropbox.Dropbox(os.getenv("DROPBOX_ACCESS_TOKEN"))
     package = package_data["PACKAGE_NAME_PRETTY"]
     version = package_data["PACKAGE_VERSION"]

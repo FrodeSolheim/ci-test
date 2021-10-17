@@ -18,6 +18,7 @@ jobs:
 
     env:
       SIGNING_ENABLED: ${{ secrets.MACOS_CERTIFICATE_P12_DATA_TEST }}
+      UPLOAD_ENABLED: ${{ secrets.DROPBOX_ACCESS_TOKEN_TEST }}
 
     steps:
     - name: Install brew packages
@@ -89,9 +90,11 @@ jobs:
 
     - name: Upload build to Dropbox folder
       if: >-
+        env.UPLOAD_ENABLED != null && (
         github.ref == 'refs/heads/master' ||
         github.ref == 'refs/heads/dev' ||
         github.ref == 'refs/heads/stable'
+        )
       run: |
         python3 -m pip install dropbox
         fsbuild/upload

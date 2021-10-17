@@ -17,8 +17,8 @@ jobs:
     runs-on: macos-10.15
 
     env:
-      SIGNING_ENABLED: ${{ secrets.MACOS_CERTIFICATE_P12_DATA_TEST }}
-      UPLOAD_ENABLED: ${{ secrets.DROPBOX_ACCESS_TOKEN_TEST }}
+      SIGNING_ENABLED: ${{ secrets.MACOS_CERTIFICATE_P12_DATA }}
+      UPLOAD_ENABLED: ${{ secrets.DROPBOX_ACCESS_TOKEN }}
 
     steps:
     - name: Install brew packages

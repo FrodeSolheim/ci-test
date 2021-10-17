@@ -17,7 +17,7 @@ jobs:
     runs-on: macos-10.15
 
     env:
-      - SIGNING_ENABLED: ${{ secrets.MACOS_CERTIFICATE_P12_DATA_TEST }}
+      SIGNING_ENABLED: ${{ secrets.MACOS_CERTIFICATE_P12_DATA_TEST }}
 
     steps:
     - name: Install brew packages

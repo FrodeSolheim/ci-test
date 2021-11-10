@@ -1,1 +1,1 @@
-fsdeps/dep/SDL2
+fsdeps/packages/SDL2

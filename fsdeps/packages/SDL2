@@ -5,13 +5,8 @@ set -e
 # Dependency: pulseaudio?
 # Dependency: wayland?
 
-if [ "`uname`" = "Darwin" ]; then
-PACKAGE=SDL2-2.0.14
-CHECKSUM=d8215b571a581be1332d2106f8036fcb03d12a70bae01e20f424976d275432bc
-else
-PACKAGE=SDL2-2.0.16
-CHECKSUM=65be9ff6004034b5b2ce9927b5a4db1814930f169c4b2dae0a1e4697075f287b
-fi
+PACKAGE=SDL2-2.0.22
+CHECKSUM=fe7cbf3127882e3fc7259a75a0cb585620272c51745d3852ab9dd87960697f2e
 REVISION=0
 
 . fsdeps/dep.sh
@@ -58,6 +53,10 @@ if [ "`uname`" = "Linux" ]; then
     --disable-video-rpi \
     --enable-video-wayland \
     --enable-video-kmsdrm
+elif [ "`uname`" = "Darwin" ]; then
+./configure \
+	--prefix=$PREFIX \
+	--disable-joystick-mfi
 else
 ./configure \
     --prefix=$PREFIX
